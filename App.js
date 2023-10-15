@@ -3,6 +3,7 @@ import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import RegistrationScreen from "./src/screens/RegistrationScreen";
 
 import background from "./src/assets/images/main-bg.jpg";
+import LoginScreen from "./src/screens/LoginScreen";
 
 export default function App() {
   return (
@@ -15,7 +16,8 @@ export default function App() {
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <RegistrationScreen />
+          {/* <RegistrationScreen /> */}
+          <LoginScreen />
           <StatusBar style="auto" />
         </View>
       </ImageBackground>

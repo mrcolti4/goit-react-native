@@ -5,13 +5,9 @@ import FormInput from "../components/form/FormInput";
 import { useState } from "react";
 import PasswordInput from "../components/form/PasswordInput";
 import SignInUpButton from "../components/form/SignInUpButton";
+import FormContainer from "../components/form/FormContainer";
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    flex: 1,
-    justifyContent: "flex-end",
-  },
   form: { gap: 16, marginBottom: 43 },
 });
 
@@ -21,7 +17,7 @@ const RegistrationScreen = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <View style={styles.container}>
+    <FormContainer>
       <UserForm title="Реєстрація">
         <Image />
         <View style={styles.form}>
@@ -45,7 +41,7 @@ const RegistrationScreen = () => {
         />
         <SignInUpButton value="Вже є акаунт? Увійти" />
       </UserForm>
-    </View>
+    </FormContainer>
   );
 };
 
