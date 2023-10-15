@@ -1,5 +1,11 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 
 const styles = StyleSheet.create({
   form: {
@@ -21,10 +27,12 @@ const styles = StyleSheet.create({
 
 const UserForm = ({ children, title }) => {
   return (
-    <View style={styles.form}>
-      <Text style={styles.title}>{title}</Text>
-      {children}
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.form}>
+        <Text style={styles.title}>{title}</Text>
+        {children}
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
