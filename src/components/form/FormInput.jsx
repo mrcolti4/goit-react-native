@@ -1,4 +1,9 @@
-import { TextInput, StyleSheet } from "react-native";
+import {
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 
 const styles = StyleSheet.create({
   input: {
@@ -17,12 +22,16 @@ const styles = StyleSheet.create({
 
 const FormInput = ({ placeholder, ...fields }) => {
   return (
-    <TextInput
-      style={styles.input}
-      placeholder={placeholder}
-      placeholderTextColor="#BDBDBD"
-      {...fields}
-    />
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+    >
+      <TextInput
+        style={styles.input}
+        placeholder={placeholder}
+        placeholderTextColor="#BDBDBD"
+        {...fields}
+      />
+    </KeyboardAvoidingView>
   );
 };
 
