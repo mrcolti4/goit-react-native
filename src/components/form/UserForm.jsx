@@ -17,9 +17,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
   },
   title: {
+    fontFamily: "Roboto-Medium",
     textAlign: "center",
     fontSize: 30,
-    fontWeight: "500",
     letterSpacing: 0.3,
     marginBottom: 33,
   },

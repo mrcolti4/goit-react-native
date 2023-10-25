@@ -1,17 +1,24 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const styles = StyleSheet.create({
-  text: {
-    color: "#1B4371",
-    fontSize: 16,
-    textAlign: "center",
+  button: {
     marginTop: 16,
+    alignItems: "center",
+  },
+  text: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    color: "#1B4371",
   },
 });
 
-const SignInUpButton = ({ value }) => {
-  return <Text style={styles.text}>{value}</Text>;
+const SignInUpButton = ({ children }) => {
+  return (
+    <TouchableOpacity style={styles.button}>
+      <Text style={styles.text}>{children}</Text>
+    </TouchableOpacity>
+  );
 };
 
 export default SignInUpButton;

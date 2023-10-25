@@ -7,16 +7,15 @@ import {
 
 const styles = StyleSheet.create({
   input: {
+    fontFamily: "Roboto-Regular",
     backgroundColor: "#F6F6F6",
     borderColor: "#E8E8E8",
     borderWidth: 1,
-    lineHeight: 1,
-    padding: 10,
+    padding: 16,
+    height: 50,
     borderRadius: 5,
     color: "#212121",
     fontSize: 16,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 
