@@ -15,23 +15,14 @@ const styles = StyleSheet.create({
     minHeight: 490,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-  },
-  title: {
-    fontFamily: "Roboto-Medium",
-    textAlign: "center",
-    fontSize: 30,
-    letterSpacing: 0.3,
-    marginBottom: 33,
+    position: "relative",
   },
 });
 
-const UserForm = ({ children, title }) => {
+const UserForm = ({ children }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.form}>
-        <Text style={styles.title}>{title}</Text>
-        {children}
-      </View>
+      <View style={styles.form}>{children}</View>
     </TouchableWithoutFeedback>
   );
 };
