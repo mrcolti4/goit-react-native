@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View, Image } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import UserForm from "../components/form/UserForm";
 import SubmitButton from "../components/form/SubmitButton";
 import FormInput from "../components/form/FormInput";
@@ -6,6 +6,8 @@ import { useState } from "react";
 import PasswordInput from "../components/form/PasswordInput";
 import SignInUpButton from "../components/form/SignInUpButton";
 import FormContainer from "../components/form/FormContainer";
+import UploadImage from "../components/form/UploadImage";
+import FormTitle from "../components/form/FormTitle";
 
 const styles = StyleSheet.create({
   form: { gap: 16, marginBottom: 43 },
@@ -18,8 +20,9 @@ const RegistrationScreen = () => {
 
   return (
     <FormContainer>
-      <UserForm title="Реєстрація">
-        <Image />
+      <UserForm>
+        <UploadImage />
+        <FormTitle>Реєстрація</FormTitle>
         <View style={styles.form}>
           <FormInput
             placeholder="Логін"
