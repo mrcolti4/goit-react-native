@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import UserForm from "../components/form/UserForm";
 import FormContainer from "../components/form/FormContainer";
 import FormInput from "../components/form/FormInput";
@@ -30,7 +30,12 @@ const LoginScreen = () => {
           <PasswordInput value={password} onChangeText={setPassword} />
         </View>
         <SubmitButton text="Увійти" />
-        <SignInUpButton value="Немає акаунту? Зареєструватися" />
+        <SignInUpButton>
+          Немає акаунту?{" "}
+          <Text style={{ textDecorationLine: "underline" }}>
+            Зареєструватися
+          </Text>
+        </SignInUpButton>
       </UserForm>
     </FormContainer>
   );

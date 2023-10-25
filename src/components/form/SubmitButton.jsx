@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 const styles = StyleSheet.create({
   button: {
@@ -12,14 +12,16 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
   },
 });
 
 const SubmitButton = ({ text, onPress }) => {
   return (
-    <Pressable style={styles.button} onPress={onPress}>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{text}</Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 

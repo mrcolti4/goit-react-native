@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     top: "50%",
     transform: [{ translateY: 25 / -2 }],
     color: "#1B4371",
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     zIndex: 5,
   },
