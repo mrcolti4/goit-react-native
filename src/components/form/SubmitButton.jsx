@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const SubmitButton = ({ text, onPress }) => {
+const SubmitButton = ({ children, onPress }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text}>{children}</Text>
     </TouchableOpacity>
   );
 };
