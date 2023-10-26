@@ -8,6 +8,8 @@ import SignInUpButton from "../components/form/SignInUpButton";
 import FormContainer from "../components/form/FormContainer";
 import UploadImage from "../components/form/UploadImage";
 import FormTitle from "../components/form/FormTitle";
+import UserFormLayout from "../layout/UserFormLayout";
+import NavigateLink from "../components/ui/NavigateLink";
 
 const styles = StyleSheet.create({
   form: { gap: 16, marginBottom: 43 },
@@ -43,7 +45,10 @@ const RegistrationScreen = () => {
           <PasswordInput value={password} onChangeText={setPassword} />
         </View>
         <SubmitButton onPress={onPress}>Зареєстуватися</SubmitButton>
-        <SignInUpButton>Вже є акаунт? Увійти</SignInUpButton>
+        <SignInUpButton>
+          Вже є акаунт?{" "}
+          <NavigateLink to={{ screen: "Login" }}>Увійти</NavigateLink>
+        </SignInUpButton>
       </UserForm>
     </FormContainer>
   );

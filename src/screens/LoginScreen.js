@@ -7,7 +7,7 @@ import PasswordInput from "../components/form/PasswordInput";
 import SubmitButton from "../components/form/SubmitButton";
 import SignInUpButton from "../components/form/SignInUpButton";
 import FormTitle from "../components/form/FormTitle";
-import Link from "../components/ui/Link";
+import NavigateLink from "../components/ui/NavigateLink";
 
 const styles = StyleSheet.create({
   form: {
@@ -41,7 +41,10 @@ const LoginScreen = () => {
         <SubmitButton onPress={onPress}>Увійти</SubmitButton>
         <SignInUpButton>
           <Text style={{ textAlign: "center", justifyContent: "center" }}>
-            Немає акаунту? <Link>Зареєструватися</Link>
+            Немає акаунту?{" "}
+            <NavigateLink to={{ screen: "Registration" }}>
+              Зареєструватися
+            </NavigateLink>
           </Text>
         </SignInUpButton>
       </UserForm>
