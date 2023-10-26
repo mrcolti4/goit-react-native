@@ -30,7 +30,7 @@ const LoginScreen = () => {
     <FormContainer>
       <UserForm>
         <View style={styles.form}>
-          <FormTitle paddingTop={{ paddingTop: 32 }}>Увійти</FormTitle>
+          <FormTitle marginTop={{ marginTop: 32 }}>Увійти</FormTitle>
           <FormInput
             placeholder="Адреса електронної пошти"
             value={email}
