@@ -6,6 +6,8 @@ import FormInput from "../components/form/FormInput";
 import PasswordInput from "../components/form/PasswordInput";
 import SubmitButton from "../components/form/SubmitButton";
 import SignInUpButton from "../components/form/SignInUpButton";
+import FormTitle from "../components/form/FormTitle";
+import Link from "../components/ui/Link";
 
 const styles = StyleSheet.create({
   form: {
@@ -18,10 +20,17 @@ const LoginScreen = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  const onPress = () => {
+    if (!email || !password) {
+      return;
+    }
+    console.log(`Пошта: ${email}\nПароль: ${password}`);
+  };
   return (
     <FormContainer>
-      <UserForm title="Увійти">
+      <UserForm>
         <View style={styles.form}>
+          <FormTitle paddingTop={{ paddingTop: 32 }}>Увійти</FormTitle>
           <FormInput
             placeholder="Адреса електронної пошти"
             value={email}
@@ -29,11 +38,10 @@ const LoginScreen = () => {
           />
           <PasswordInput value={password} onChangeText={setPassword} />
         </View>
-        <SubmitButton text="Увійти" />
+        <SubmitButton onPress={onPress}>Увійти</SubmitButton>
         <SignInUpButton>
-          Немає акаунту?{" "}
-          <Text style={{ textDecorationLine: "underline" }}>
-            Зареєструватися
+          <Text style={{ textAlign: "center", justifyContent: "center" }}>
+            Немає акаунту? <Link>Зареєструватися</Link>
           </Text>
         </SignInUpButton>
       </UserForm>

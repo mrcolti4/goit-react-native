@@ -8,12 +8,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     letterSpacing: 0.3,
     marginBottom: 33,
-    paddingTop: 93,
   },
 });
 
-const FormTitle = ({ children }) => {
-  return <Text style={styles.title}>{children}</Text>;
+const FormTitle = ({ children, paddingTop }) => {
+  return <Text style={[styles.title, paddingTop]}>{children}</Text>;
 };
 
 export default FormTitle;

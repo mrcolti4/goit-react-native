@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   form: {
     backgroundColor: "#fff",
     paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingBottom: 45,
     minHeight: 490,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,

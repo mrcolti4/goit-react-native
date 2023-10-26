@@ -18,11 +18,17 @@ const RegistrationScreen = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
+  const onPress = () => {
+    if (!email || !password || !userName) {
+      return;
+    }
+    console.log(`Логін: ${userName}\nПошта: ${email}\nПароль: ${password}`);
+  };
   return (
     <FormContainer>
       <UserForm>
         <UploadImage />
-        <FormTitle>Реєстрація</FormTitle>
+        <FormTitle paddingTop={{ paddingTop: 93 }}>Реєстрація</FormTitle>
         <View style={styles.form}>
           <FormInput
             placeholder="Логін"
@@ -36,13 +42,8 @@ const RegistrationScreen = () => {
           />
           <PasswordInput value={password} onChangeText={setPassword} />
         </View>
-        <SubmitButton
-          text="Зареєстуватися"
-          onPress={() =>
-            alert(`Логін: ${userName}\nПошта: ${email}\nПароль: ${password}`)
-          }
-        />
-        <SignInUpButton value="Вже є акаунт? Увійти" />
+        <SubmitButton onPress={onPress}>Зареєстуватися</SubmitButton>
+        <SignInUpButton>Вже є акаунт? Увійти</SignInUpButton>
       </UserForm>
     </FormContainer>
   );
