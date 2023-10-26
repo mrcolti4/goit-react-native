@@ -28,7 +28,7 @@ const RegistrationScreen = () => {
     <FormContainer>
       <UserForm>
         <UploadImage />
-        <FormTitle paddingTop={{ paddingTop: 93 }}>Реєстрація</FormTitle>
+        <FormTitle marginTop={{ marginTop: 93 }}>Реєстрація</FormTitle>
         <View style={styles.form}>
           <FormInput
             placeholder="Логін"
