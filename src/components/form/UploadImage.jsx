@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
 const UploadImage = () => {
   const [image, setImage] = useState(null);
   const addImage = async () => {
+    console.log(123);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,

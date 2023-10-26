@@ -21,16 +21,12 @@ const styles = StyleSheet.create({
 
 const FormInput = ({ placeholder, ...fields }) => {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : "height"}
-    >
-      <TextInput
-        style={styles.input}
-        placeholder={placeholder}
-        placeholderTextColor="#BDBDBD"
-        {...fields}
-      />
-    </KeyboardAvoidingView>
+    <TextInput
+      style={styles.input}
+      placeholder={placeholder}
+      placeholderTextColor="#BDBDBD"
+      {...fields}
+    />
   );
 };
 

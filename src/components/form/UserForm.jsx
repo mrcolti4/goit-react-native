@@ -1,10 +1,10 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import {
-  Text,
   View,
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -20,9 +20,41 @@ const styles = StyleSheet.create({
 });
 
 const UserForm = ({ children }) => {
+  const [isShownKeyboard, setIsShownKeyboard] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setIsShownKeyboard(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setIsShownKeyboard(false);
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.form}>{children}</View>
+      <View
+        style={
+          isShownKeyboard ? { ...styles.form, paddingBottom: 0 } : styles.form
+        }
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+        >
+          {children}
+        </KeyboardAvoidingView>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
