@@ -1,4 +1,3 @@
-import React from "react";
 import { ImageBackground, StyleSheet } from "react-native";
 
 import background from "../assets/images/main-bg.jpg";
@@ -11,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const UserFormLayout = ({ children }) => {
+const MainLayout = ({ children }) => {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -30,4 +29,4 @@ const UserFormLayout = ({ children }) => {
   );
 };
 
-export default UserFormLayout;
+export default MainLayout;
