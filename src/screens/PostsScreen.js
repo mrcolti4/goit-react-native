@@ -1,7 +1,7 @@
-import React from "react";
+import { Text } from "react-native";
 
-const PostsScreen = () => {
-  return <div>PostsScreen</div>;
+const ProfileScreen = () => {
+  return <Text>ProfileScreen</Text>;
 };
 
-export default PostsScreen;
+export default ProfileScreen;

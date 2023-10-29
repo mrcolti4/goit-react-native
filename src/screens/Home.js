@@ -1,31 +1,44 @@
-import React from "react";
-import { View, StyleSheet, Text, Dimensions } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from "@expo/vector-icons/Feather";
 
-import Title from "../components/Title";
-import UploadImage from "../components/UploadImage";
-import MainLayout from "../layout/MainLayout";
+import PostsScreen from "./PostsScreen";
+import ProfileScreen from "./ProfileScreen";
+import CreatePostScreen from "./CreatePostScreen";
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 100,
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingHorizontal: 16,
-  },
-});
+const Tabs = createBottomTabNavigator();
 
 const Home = () => {
   return (
-    <MainLayout>
-      <View style={styles.container}>
-        <UploadImage />
-        <Title style={{ marginTop: 92 }}>Natali Romanova</Title>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum,
-          accusamus.
-        </Text>
-      </View>
-    </MainLayout>
+    <Tabs.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === "create-post") {
+            // iconName = focused ? "add" : "ios-information-circle-outline";
+            iconName = "plus";
+          } else if (route.name === "profile") {
+            // iconName = focused ? "user" : "ios-list";
+            iconName = "user";
+          } else if (route.name === "posts") {
+            iconName = "grid";
+          }
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: "#FF6C00",
+        inactiveTintColor: "gray",
+      }}
+    >
+      <Tabs.Screen name="posts" component={PostsScreen} />
+      <Tabs.Screen name="create-post" component={CreatePostScreen} />
+      <Tabs.Screen
+        name="profile"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
+    </Tabs.Navigator>
   );
 };
 

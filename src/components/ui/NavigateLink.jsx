@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const NavigateLink = ({ children, ...fields }) => {
+const NavigateLink = ({ children, screen = "/Home", ...fields }) => {
   return (
-    <Link {...fields} style={styles.text}>
+    <Link to={screen} {...fields} style={styles.text}>
       <Text style={styles.text}>{children}</Text>
     </Link>
   );
