@@ -6,7 +6,7 @@ import FormInput from "../components/form/FormInput";
 import PasswordInput from "../components/form/PasswordInput";
 import SubmitButton from "../components/form/SubmitButton";
 import SignInUpButton from "../components/form/SignInUpButton";
-import FormTitle from "../components/Title";
+import FormTitle from "../components/posts/Title";
 import NavigateLink from "../components/ui/NavigateLink";
 import MainLayout from "../layout/MainLayout";
 

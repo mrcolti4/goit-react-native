@@ -1,9 +1,9 @@
 import { View, FlatList, StyleSheet, Text, Dimensions } from "react-native";
 import Icon from "@expo/vector-icons/Feather";
 
-import Title from "../components/Title";
-import UploadImage from "../components/UploadImage";
-import Post from "../components/Post";
+import Title from "../components/posts/Title";
+import UploadImage from "../components/posts/UploadImage";
+import Post from "../components/posts/Post";
 import MainLayout from "../layout/MainLayout";
 
 import { data } from "../data.js";
