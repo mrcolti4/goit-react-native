@@ -1,10 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { View } from "react-native";
 import Icon from "@expo/vector-icons/Feather";
 
+import Logout from "../components/ui/Logout";
 import PostsScreen from "./PostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import CreatePostScreen from "./CreatePostScreen/CreatePostScreen";
-import { View } from "react-native";
+import GoBack from "../components/ui/GoBack";
 
 const Tabs = createBottomTabNavigator();
 
@@ -57,14 +59,7 @@ const Home = () => {
           color: "#212121",
         },
         headerRight: () => {
-          return (
-            <Icon
-              name="log-out"
-              size={22}
-              color="#BDBDBD"
-              style={{ marginRight: 16 }}
-            />
-          );
+          return <Logout style={{ marginRight: 16 }} />;
         },
         tabBarShowLabel: false,
         tabBarOptions: {
@@ -79,14 +74,7 @@ const Home = () => {
         component={CreatePostScreen}
         options={{
           headerLeft: () => {
-            return (
-              <Icon
-                name="arrow-left"
-                size={22}
-                color="#212121"
-                style={{ marginLeft: 16 }}
-              />
-            );
+            return <GoBack style={{ marginLeft: 16 }} />;
           },
           headerRight: null,
         }}

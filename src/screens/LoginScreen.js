@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import UserForm from "../components/form/UserForm";
 import FormContainer from "../components/form/FormContainer";
 import FormInput from "../components/form/FormInput";
@@ -21,11 +23,14 @@ const LoginScreen = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  const navigation = useNavigation();
+
   const onPress = () => {
     if (!email || !password) {
       return;
     }
-    console.log(`Пошта: ${email}\nПароль: ${password}`);
+
+    navigation.navigate("Home");
   };
   return (
     <MainLayout>

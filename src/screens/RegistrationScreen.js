@@ -1,4 +1,5 @@
-import { Text, StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
 import UserForm from "../components/form/UserForm";
@@ -21,11 +22,13 @@ const RegistrationScreen = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
+  const navigation = useNavigation();
+
   const onPress = () => {
     if (!email || !password || !userName) {
       return;
     }
-    console.log(`Логін: ${userName}\nПошта: ${email}\nПароль: ${password}`);
+    navigation.navigate("Home");
   };
   return (
     <MainLayout>

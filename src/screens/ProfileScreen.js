@@ -7,6 +7,7 @@ import Post from "../components/posts/Post";
 import MainLayout from "../layout/MainLayout";
 
 import { data } from "../data.js";
+import Logout from "../components/ui/Logout";
 
 const styles = StyleSheet.create({
   container: {
@@ -24,12 +25,7 @@ const PostsScreen = () => {
       <MainLayout>
         <View style={styles.container}>
           <UploadImage />
-          <Icon
-            name="log-out"
-            color="#BDBDBD"
-            size={24}
-            style={styles.logOut}
-          />
+          <Logout style={styles.logOut} />
           <Title style={{ marginTop: 92 }}>Natali Romanova</Title>
           <FlatList
             data={data}
