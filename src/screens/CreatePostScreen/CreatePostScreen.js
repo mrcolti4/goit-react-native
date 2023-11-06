@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
 });
 
 const CreatePostScreen = () => {
+  // Form state
   const [postTitle, setPostTitle] = useState("");
   const [postLocation, setPostLocation] = useState("");
   const [postImg, setPostImg] = useState(null);
@@ -59,7 +60,6 @@ const CreatePostScreen = () => {
   const navigation = useNavigation();
   const onPress = () => {
     if (!postTitle || !postLocation) {
-      alert(postTitle);
       navigation.navigate("Posts");
       return;
     }
