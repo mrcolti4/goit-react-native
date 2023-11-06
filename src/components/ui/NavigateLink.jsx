@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
 import { Text, StyleSheet } from "react-native";
 
@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const Link = ({ children }) => {
+const NavigateLink = ({ children, screen = "/Home", ...fields }) => {
   return (
-    <TouchableOpacity style={styles.text}>
+    <Link to={screen} {...fields} style={styles.text}>
       <Text style={styles.text}>{children}</Text>
-    </TouchableOpacity>
+    </Link>
   );
 };
 
-export default Link;
+export default NavigateLink;

@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const FormTitle = ({ children, marginTop }) => {
-  return <Text style={[styles.title, marginTop]}>{children}</Text>;
+const FormTitle = ({ children, style }) => {
+  return <Text style={[styles.title, style]}>{children}</Text>;
 };
 
 export default FormTitle;
