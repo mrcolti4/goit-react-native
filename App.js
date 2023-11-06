@@ -23,7 +23,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <MainStack.Navigator
-        initialRouteName="Registration"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false,
         }}

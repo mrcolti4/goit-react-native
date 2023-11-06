@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Icon from "@expo/vector-icons/Feather";
 
 import Logout from "../components/ui/Logout";
@@ -7,8 +8,21 @@ import PostsScreen from "./PostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import CreatePostScreen from "./CreatePostScreen/CreatePostScreen";
 import GoBack from "../components/ui/GoBack";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const Tabs = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function CreatePostTabs() {
+  return (
+    <Stack.Navigator
+      screenOptions={{ headerShown: false, navigationBarHidden: false }}
+    >
+      <Stack.Screen name="CreatePostHome" component={CreatePostScreen} />
+      <Stack.Screen name="DeletePost" component={Home} />
+    </Stack.Navigator>
+  );
+}
 
 const Home = () => {
   return (
@@ -17,11 +31,11 @@ const Home = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === "Створити публікацію") {
+          if (route.name === "CreatePost") {
             iconName = "plus";
-          } else if (route.name === "profile") {
+          } else if (route.name === "Profile") {
             iconName = "user";
-          } else if (route.name === "Публікації") {
+          } else if (route.name === "Posts") {
             iconName = "grid";
           }
           return (
@@ -68,19 +82,31 @@ const Home = () => {
         },
       })}
     >
-      <Tabs.Screen name="Публікації" component={PostsScreen} />
       <Tabs.Screen
-        name="Створити публікацію"
-        component={CreatePostScreen}
-        options={{
+        name="Posts"
+        component={PostsScreen}
+        options={{ headerTitle: "Публікації" }}
+      />
+      <Tabs.Screen
+        name="CreatePost"
+        component={CreatePostTabs}
+        // options={{
+        //   headerLeft: () => {
+        //     return <GoBack style={{ marginLeft: 16 }} />;
+        //   },
+        //   headerRight: null,
+        // }}
+        options={({ route }) => ({
+          tabBarStyle: { display: "none" },
           headerLeft: () => {
             return <GoBack style={{ marginLeft: 16 }} />;
           },
           headerRight: null,
-        }}
+          headerTitle: "Створити публікацію",
+        })}
       />
       <Tabs.Screen
-        name="profile"
+        name="Profile"
         component={ProfileScreen}
         options={{ headerShown: false }}
       />

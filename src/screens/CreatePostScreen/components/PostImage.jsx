@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Icon from "@expo/vector-icons/Feather";
 
 const styles = StyleSheet.create({
@@ -21,14 +20,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const PostImage = () => {
-  const [image, setImage] = useState(null);
+const PostImage = ({ image, setImage }) => {
   return (
     <View style={styles.container}>
       {image && <Image source={{ uri: image }} />}
-      <View style={styles.iconWrapper}>
+      <TouchableOpacity style={styles.iconWrapper}>
         <Icon name="camera" size={24} color="#BDBDBD" />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
