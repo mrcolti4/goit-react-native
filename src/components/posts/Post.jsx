@@ -1,5 +1,7 @@
 import { View, Image, Text, StyleSheet } from "react-native";
 import Icon from "@expo/vector-icons/Feather";
+import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/core";
 
 const styles = StyleSheet.create({
   post: {
@@ -36,6 +38,8 @@ const styles = StyleSheet.create({
 });
 
 const Post = ({ post }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.post}>
       <Image style={styles.img} source={post.imgSrc} />
@@ -43,23 +47,33 @@ const Post = ({ post }) => {
         <Text style={styles.title}>{post.title}</Text>
         <View style={styles.wrapper}>
           <View style={styles.info}>
-            <Icon
-              name="message-circle"
-              size={20}
-              color="#FF6C00"
-              style={{ transform: [{ rotateY: "180deg" }] }}
-            />
-            <Text style={styles.stat}>{post.msgCount}</Text>
+            <TouchableOpacity
+              style={styles.info}
+              onPress={() => navigation.navigate("Comments")}
+            >
+              <Icon
+                name="message-circle"
+                size={20}
+                color="#FF6C00"
+                style={{ transform: [{ rotateY: "180deg" }] }}
+              />
+              <Text style={styles.stat}>{post.msgCount}</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.info}>
             <Icon name="thumbs-up" size={20} color="#FF6C00" />
             <Text style={styles.stat}>{post.likesCount}</Text>
           </View>
           <View style={[styles.info, { marginLeft: "auto" }]}>
-            <Icon name="map-pin" size={20} color="#BDBDBD" />
-            <Text style={[styles.stat, { textDecorationLine: "underline" }]}>
-              {post.location}
-            </Text>
+            <TouchableOpacity
+              style={styles.info}
+              onPress={() => navigation.navigate("Map")}
+            >
+              <Icon name="map-pin" size={20} color="#BDBDBD" />
+              <Text style={[styles.stat, { textDecorationLine: "underline" }]}>
+                {post.location}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>

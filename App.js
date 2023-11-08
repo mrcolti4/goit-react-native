@@ -6,6 +6,8 @@ import { useFonts } from "expo-font";
 import RegistrationScreen from "./src/screens/RegistrationScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import Home from "./src/screens/Home";
+import MapScreen from "./src/screens/MapScreen";
+import CommentsScreen from "./src/screens/CommentsScreen/CommentsScreen";
 
 const MainStack = createStackNavigator();
 
@@ -31,6 +33,23 @@ export default function App() {
         <MainStack.Screen name="Home" component={Home} />
         <MainStack.Screen name="Registration" component={RegistrationScreen} />
         <MainStack.Screen name="Login" component={LoginScreen} />
+        <MainStack.Screen
+          name="MapScreen"
+          component={MapScreen}
+        ></MainStack.Screen>
+        <MainStack.Screen
+          name="Comments"
+          component={CommentsScreen}
+          options={{
+            headerTitle: "Коментарі",
+            headerShown: true,
+            headerStyle: {
+              borderBottomWidth: 1,
+              borderBottomColor: "rgba(33, 33, 33, 0.8)",
+            },
+            headerTitleAlign: "center",
+          }}
+        ></MainStack.Screen>
       </MainStack.Navigator>
     </NavigationContainer>
   );
