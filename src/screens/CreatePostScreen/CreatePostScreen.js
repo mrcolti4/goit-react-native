@@ -100,7 +100,6 @@ const CreatePostScreen = () => {
     };
     setPostCoords(coords);
     navigation.navigate("Posts");
-    console.log(postCoords);
   };
 
   return (

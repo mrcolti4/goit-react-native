@@ -6,6 +6,7 @@ export const data = [
     msgCount: 8,
     likesCount: 153,
     location: "Ukraine",
+    coordinates: { latitude: 50.50738124536963, longitude: 30.49546726047993 },
   },
   {
     id: 2,
@@ -14,6 +15,10 @@ export const data = [
     msgCount: 3,
     likesCount: 200,
     location: "Ukraine",
+    coordinates: {
+      latitude: 48.463166717789015,
+      longitude: 34.972584061324596,
+    },
   },
   {
     id: 3,
@@ -22,5 +27,6 @@ export const data = [
     msgCount: 50,
     likesCount: 200,
     location: "Ukraine",
+    coordinates: { latitude: 49.86266951937893, longitude: 23.990902192890648 },
   },
 ];

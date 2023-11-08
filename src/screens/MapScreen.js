@@ -1,42 +1,46 @@
-import { useEffect, useState } from "react";
+import { View, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import * as Location from "expo-location";
+import { useRoute } from "@react-navigation/native";
 
-const MapScreen = () => {
-  const [location, setLocation] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        console.log("Permission to access location was denied");
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      const coords = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      };
-      setLocation(coords);
-    })();
-  }, []);
+const Home = () => {
+  const {
+    params: { coordinates },
+  } = useRoute();
 
   return (
-    <MapView
-      style={{ width: "100%", height: "100%" }}
-      initialRegion={{ ...location }}
-    >
-      {location && (
-        <Marker
-          draggable
-          onDragEnd={(e) => {
-            setLocation(e.nativeEvent.coordinate);
-          }}
-          coordinate={location}
-        />
-      )}
-    </MapView>
+    <View style={styles.container}>
+      <MapView
+        style={styles.mapStyle}
+        region={{
+          ...coordinates,
+          latitudeDelta: 0.06,
+          longitudeDelta: 0.04,
+        }}
+        showsUserLocation={true}
+      >
+        {coordinates && (
+          <Marker
+            title="I am here"
+            coordinate={coordinates}
+            description="Hello"
+          />
+        )}
+      </MapView>
+    </View>
   );
 };
 
-export default MapScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  mapStyle: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+  },
+});
+
+export default Home;

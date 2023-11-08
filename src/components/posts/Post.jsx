@@ -40,11 +40,14 @@ const styles = StyleSheet.create({
 const Post = ({ post }) => {
   const navigation = useNavigation();
 
+  const { id, imgSrc, title, msgCount, likesCount, location, coordinates } =
+    post;
+
   return (
     <View style={styles.post}>
-      <Image style={styles.img} source={post.imgSrc} />
+      <Image style={styles.img} source={imgSrc} />
       <View style={styles.descr}>
-        <Text style={styles.title}>{post.title}</Text>
+        <Text style={styles.title}>{title}</Text>
         <View style={styles.wrapper}>
           <View style={styles.info}>
             <TouchableOpacity
@@ -57,21 +60,21 @@ const Post = ({ post }) => {
                 color="#FF6C00"
                 style={{ transform: [{ rotateY: "180deg" }] }}
               />
-              <Text style={styles.stat}>{post.msgCount}</Text>
+              <Text style={styles.stat}>{msgCount}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.info}>
             <Icon name="thumbs-up" size={20} color="#FF6C00" />
-            <Text style={styles.stat}>{post.likesCount}</Text>
+            <Text style={styles.stat}>{likesCount}</Text>
           </View>
           <View style={[styles.info, { marginLeft: "auto" }]}>
             <TouchableOpacity
               style={styles.info}
-              onPress={() => navigation.navigate("Map")}
+              onPress={() => navigation.navigate("MapScreen", { coordinates })}
             >
               <Icon name="map-pin" size={20} color="#BDBDBD" />
               <Text style={[styles.stat, { textDecorationLine: "underline" }]}>
-                {post.location}
+                {location}
               </Text>
             </TouchableOpacity>
           </View>

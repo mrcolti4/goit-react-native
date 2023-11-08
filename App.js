@@ -11,6 +11,15 @@ import CommentsScreen from "./src/screens/CommentsScreen/CommentsScreen";
 
 const MainStack = createStackNavigator();
 
+const defaultOptions = {
+  headerShown: true,
+  headerStyle: {
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(33, 33, 33, 0.8)",
+  },
+  headerTitleAlign: "center",
+};
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./src/fonts/Roboto-Regular.ttf"),
@@ -36,18 +45,14 @@ export default function App() {
         <MainStack.Screen
           name="MapScreen"
           component={MapScreen}
+          options={{ ...defaultOptions, headerTitle: "Локація" }}
         ></MainStack.Screen>
         <MainStack.Screen
           name="Comments"
           component={CommentsScreen}
           options={{
+            ...defaultOptions,
             headerTitle: "Коментарі",
-            headerShown: true,
-            headerStyle: {
-              borderBottomWidth: 1,
-              borderBottomColor: "rgba(33, 33, 33, 0.8)",
-            },
-            headerTitleAlign: "center",
           }}
         ></MainStack.Screen>
       </MainStack.Navigator>
