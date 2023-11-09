@@ -44,17 +44,17 @@ const UserForm = ({ children }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View
-        style={
-          isShownKeyboard ? { ...styles.form, paddingBottom: 0 } : styles.form
-        }
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
       >
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
+        <View
+          style={
+            isShownKeyboard ? { ...styles.form, paddingBottom: 0 } : styles.form
+          }
         >
           {children}
-        </KeyboardAvoidingView>
-      </View>
+        </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
