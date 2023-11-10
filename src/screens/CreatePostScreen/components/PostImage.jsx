@@ -72,7 +72,7 @@ const PostImage = () => {
         {image && (
           <>
             <Image
-              style={{ width: 343, height: 240 }}
+              style={{ width: "100%", height: 240 }}
               source={{ uri: image }}
             />
             <TouchableOpacity
