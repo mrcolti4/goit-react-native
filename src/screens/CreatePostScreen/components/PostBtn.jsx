@@ -24,9 +24,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const PostBtn = ({ children, isFilled }) => {
+const PostBtn = ({ children, isFilled, onPress }) => {
   return (
     <TouchableOpacity
+      onPress={onPress}
       disabled={!isFilled}
       style={[styles.btn, isFilled ? styles.btnActive : null]}
     >

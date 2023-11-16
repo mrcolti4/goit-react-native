@@ -8,7 +8,6 @@ import PostsScreen from "./PostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import CreatePostScreen from "./CreatePostScreen/CreatePostScreen";
 import GoBack from "../components/ui/GoBack";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const Tabs = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -90,12 +89,6 @@ const Home = () => {
       <Tabs.Screen
         name="CreatePost"
         component={CreatePostTabs}
-        // options={{
-        //   headerLeft: () => {
-        //     return <GoBack style={{ marginLeft: 16 }} />;
-        //   },
-        //   headerRight: null,
-        // }}
         options={({ route }) => ({
           tabBarStyle: { display: "none" },
           headerLeft: () => {
