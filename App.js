@@ -1,4 +1,5 @@
 import { PersistGate } from "redux-persist/integration/react";
+import { Text } from "react-native";
 import { Provider } from "react-redux";
 import { useFonts } from "expo-font";
 

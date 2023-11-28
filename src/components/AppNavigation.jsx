@@ -11,7 +11,7 @@ const AppNavigation = () => {
   return (
     <NavigationContainer>
       <MainStack.Navigator
-        initialRouteName="Home"
+        initialRouteName="Registration"
         screenOptions={{
           headerShown: false,
         }}
