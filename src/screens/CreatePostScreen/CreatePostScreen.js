@@ -59,7 +59,6 @@ const CreatePostScreen = () => {
   const navigation = useNavigation();
   const onPress = () => {
     if (!postTitle || !postLocation) {
-      alert(postTitle);
       navigation.navigate("Posts");
       return;
     }
