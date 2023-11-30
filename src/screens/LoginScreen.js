@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
+import { login } from "../redux/auth/thunk";
 
 import UserForm from "../components/form/UserForm";
 import FormContainer from "../components/form/FormContainer";
@@ -11,6 +14,7 @@ import SignInUpButton from "../components/form/SignInUpButton";
 import FormTitle from "../components/posts/Title";
 import NavigateLink from "../components/ui/NavigateLink";
 import MainLayout from "../layout/MainLayout";
+import { selectError } from "../redux/root/selectors";
 
 const styles = StyleSheet.create({
   form: {
@@ -20,18 +24,24 @@ const styles = StyleSheet.create({
 });
 
 const LoginScreen = () => {
+  const dispatch = useDispatch();
+  const error = useSelector(selectError);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const navigation = useNavigation();
 
-  const onPress = () => {
+  const onPress = async () => {
     if (!email || !password) {
       return;
     }
+    await dispatch(login({ email, password })).unwrap();
 
-    navigation.navigate("Home");
+    if (!error) {
+      navigation.navigate("Home");
+    }
   };
+
   return (
     <MainLayout>
       <FormContainer>
