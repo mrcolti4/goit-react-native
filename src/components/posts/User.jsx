@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
+    marginBottom: 32,
   },
   img: {
     width: 60,
@@ -24,13 +25,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const User = ({ user, style }) => {
+const User = ({ user }) => {
   return (
-    <View style={[styles.container, style]}>
-      <Image style={styles.img} source={user.img} />
+    <View style={styles.container}>
+      <Image style={styles.img} source={user?.img} />
       <View style={styles.descr}>
-        <Text style={styles.title}>{user.username}</Text>
-        <Text style={styles.subtitle}>{user.email}</Text>
+        <Text style={styles.title}>{user?.displayName}</Text>
+        <Text style={styles.subtitle}>{user?.email}</Text>
       </View>
     </View>
   );

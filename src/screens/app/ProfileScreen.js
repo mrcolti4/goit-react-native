@@ -1,5 +1,7 @@
-import { View, FlatList, StyleSheet, Text, Dimensions } from "react-native";
-import Icon from "@expo/vector-icons/Feather";
+import { useSelector } from "react-redux";
+import { View, FlatList, StyleSheet } from "react-native";
+
+import { selectUser } from "../../redux/auth/selectors";
 
 import Logout from "../../components/ui/Logout";
 import Title from "../../components/posts/Title";
@@ -20,22 +22,24 @@ const styles = StyleSheet.create({
 });
 
 const PostsScreen = () => {
+  const user = useSelector(selectUser);
+
   return (
-    <>
-      <MainLayout>
-        <View style={styles.container}>
-          <UploadImage />
-          <Logout style={styles.logOut} />
-          <Title style={{ marginTop: 92 }}>Natali Romanova</Title>
-          <FlatList
-            data={data}
-            renderItem={({ item }) => <Post post={item} />}
-            keyExtractor={(post) => post.id}
-            numColumns={1}
-          />
-        </View>
-      </MainLayout>
-    </>
+    <MainLayout>
+      <View style={styles.container}>
+        <UploadImage />
+        <Logout style={styles.logOut} />
+        <Title style={{ marginTop: 92 }}>
+          {user?.displayName ?? "Anonymous"}
+        </Title>
+        <FlatList
+          data={data}
+          renderItem={({ item }) => <Post post={item} />}
+          keyExtractor={(post) => post.id}
+          numColumns={1}
+        />
+      </View>
+    </MainLayout>
   );
 };
 

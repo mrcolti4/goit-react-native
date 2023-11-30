@@ -1,15 +1,12 @@
 import { View, StyleSheet, FlatList } from "react-native";
+import { useSelector } from "react-redux";
 
-import { data } from "../../data";
+import { selectUser } from "../../redux/auth/selectors";
 
 import User from "../../components/posts/User";
 import Post from "../../components/posts/Post";
 
-const user = {
-  img: require("../../assets/images/user.png"),
-  username: "Natali Romanova",
-  email: "e-mail@example.com",
-};
+import { data } from "../../data";
 
 const styles = StyleSheet.create({
   container: {
@@ -18,15 +15,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     height: "100%",
   },
-  user: {
-    marginBottom: 32,
-  },
 });
 
 const ProfileScreen = () => {
+  const user = useSelector(selectUser);
+
   return (
     <View style={styles.container}>
-      <User user={user} style={styles.user} />
+      <User user={user} />
       <FlatList
         data={data}
         renderItem={({ item }) => <Post post={item} />}

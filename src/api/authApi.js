@@ -7,15 +7,15 @@ import {
 } from "firebase/auth";
 import { auth } from "../config";
 
-const registerDB = async ({ email, password }) => {
+const registerDB = async ({ email, password, userName }) => {
   const user = await createUserWithEmailAndPassword(auth, email, password);
+  await updateUserProfile({ displayName: userName });
 
   return user;
 };
 
 const loginDB = async ({ email, password }) => {
   const credentials = await signInWithEmailAndPassword(auth, email, password);
-
   return credentials.user;
 };
 
@@ -35,16 +35,8 @@ const authStateChanged = async (onChange = () => {}) => {
 
 const updateUserProfile = async (update) => {
   const user = auth.currentUser;
-
-  // якщо такий користувач знайдений
-  if (user) {
-    // оновлюємо його профайл
-    try {
-      await updateProfile(user, update);
-    } catch (error) {
-      throw error;
-    }
-  }
+  await updateProfile(user, update);
+  return;
 };
 
 export default {
