@@ -1,4 +1,5 @@
-import { View, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { useFormik } from "formik";
+import { View, StyleSheet, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import * as Location from "expo-location";
@@ -7,6 +8,9 @@ import Icon from "@expo/vector-icons/Feather";
 import PostInput from "./components/PostInput";
 import PostImage from "./components/PostImage";
 import PostBtn from "./components/PostBtn";
+
+import { createPostSchema } from "../../../js/validationSchemas";
+import DeletePost from "./components/DeletePost";
 
 const styles = StyleSheet.create({
   container: {
@@ -31,61 +35,20 @@ const styles = StyleSheet.create({
     top: 20,
     zIndex: 10,
   },
-  deleteIconBtn: {
-    borderRadius: 20,
-    backgroundColor: "#F6F6F6",
-    justifyContent: "center",
-    alignSelf: "center",
-    width: 70,
-    position: "absolute",
-    bottom: 12,
-  },
-  deleteIcon: {
-    paddingHorizontal: 23,
-    paddingVertical: 8,
-  },
 });
 
 const CreatePostScreen = () => {
   const navigation = useNavigation();
-  // Form state
-  const [postTitle, setPostTitle] = useState("");
-  const [postLocation, setPostLocation] = useState("");
-  const [postImg, setPostImg] = useState(null);
-  const [postCoords, setPostCoords] = useState("");
 
-  const clearFields = () => {
-    setPostTitle("");
-    setPostLocation("");
-    setPostImg(null);
-  };
-
-  const isFilled = () => {
-    return [postTitle, postLocation].every((elem) => elem !== "");
-  };
-
-  const onPress = () => {
-    if (!postTitle || !postLocation) {
-      navigation.navigate("Posts");
-      return;
-    }
-    Alert.alert("Are you sure?", "If you leave all changes won't save", [
-      {
-        text: "Yes",
-        onPress: () => {
-          clearFields();
-          navigation.navigate("Posts");
-          return;
-        },
-        style: "default",
-      },
-      {
-        text: "Cancel",
-        onPress: () => {},
-        style: "cancel",
-      },
-    ]);
-  };
+  const { handleChange, values, resetForm, isValid } = useFormik({
+    initialValues: {
+      title: "",
+      location: "",
+      img: "",
+      coords: "",
+    },
+    validationSchema: createPostSchema,
+  });
 
   const handleSubmit = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -130,18 +93,11 @@ const CreatePostScreen = () => {
             />
           </View>
         </View>
-        <PostBtn onPress={handleSubmit} isFilled={isFilled()}>
+        <PostBtn onPress={handleSubmit} disabled={!isValid}>
           Опубліковати
         </PostBtn>
       </View>
-      <TouchableOpacity onPress={onPress} style={styles.deleteIconBtn}>
-        <Icon
-          name="trash-2"
-          size={24}
-          color="#BDBDBD"
-          style={styles.deleteIcon}
-        />
-      </TouchableOpacity>
+      <DeletePost resetForm={resetForm} />
     </View>
   );
 };

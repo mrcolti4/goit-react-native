@@ -24,14 +24,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const PostBtn = ({ children, isFilled, onPress }) => {
+const PostBtn = ({ children, disabled, onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      disabled={!isFilled}
-      style={[styles.btn, isFilled ? styles.btnActive : null]}
+      disabled={!disabled}
+      style={[styles.btn, disabled ? styles.btnActive : null]}
     >
-      <Text style={[styles.text, isFilled ? styles.textActive : null]}>
+      <Text style={[styles.text, disabled ? styles.textActive : null]}>
         {children}
       </Text>
     </TouchableOpacity>
