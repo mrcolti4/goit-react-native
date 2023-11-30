@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 const Comment = ({ data }) => {
   return (
     <View style={styles.container}>
-      <Image source={require("../../../assets/images/avt/avatar-01.png")} />
+      <Image source={require("../../../../assets/images/avt/avatar-01.png")} />
       <View style={styles.comment}>
         <Text style={styles.text}>
           Really love your most recent photo. I've been trying to capture the

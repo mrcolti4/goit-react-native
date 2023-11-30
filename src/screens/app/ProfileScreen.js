@@ -1,13 +1,13 @@
 import { View, FlatList, StyleSheet, Text, Dimensions } from "react-native";
 import Icon from "@expo/vector-icons/Feather";
 
-import Title from "../components/posts/Title";
-import UploadImage from "../components/posts/UploadImage";
-import Post from "../components/posts/Post";
-import MainLayout from "../layout/MainLayout";
+import Logout from "../../components/ui/Logout";
+import Title from "../../components/posts/Title";
+import UploadImage from "../../components/posts/UploadImage";
+import Post from "../../components/posts/Post";
+import MainLayout from "../../layout/MainLayout";
 
-import { data } from "../data.js";
-import Logout from "../components/ui/Logout";
+import { data } from "../../data.js";
 
 const styles = StyleSheet.create({
   container: {

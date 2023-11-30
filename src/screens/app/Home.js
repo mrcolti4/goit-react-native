@@ -3,11 +3,12 @@ import { View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Icon from "@expo/vector-icons/Feather";
 
-import Logout from "../components/ui/Logout";
+import Logout from "../../components/ui/Logout";
+import GoBack from "../../components/ui/GoBack";
+
 import PostsScreen from "./PostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import CreatePostScreen from "./CreatePostScreen/CreatePostScreen";
-import GoBack from "../components/ui/GoBack";
 
 const Tabs = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

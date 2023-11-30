@@ -1,12 +1,12 @@
 import { View, StyleSheet, FlatList } from "react-native";
 
-import { data } from "../data";
+import { data } from "../../data";
 
-import User from "../components/posts/User";
-import Post from "../components/posts/Post";
+import User from "../../components/posts/User";
+import Post from "../../components/posts/Post";
 
 const user = {
-  img: require("../assets/images/user.png"),
+  img: require("../../assets/images/user.png"),
   username: "Natali Romanova",
   email: "e-mail@example.com",
 };

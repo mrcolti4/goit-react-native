@@ -31,7 +31,7 @@ const CommentsScreen = () => {
     <View style={styles.container}>
       <Image
         style={styles.img}
-        source={require("../../assets/images/posts/img-01.png")}
+        source={require("../../../assets/images/posts/img-01.png")}
       />
       <View style={styles.commentsBlock}>
         <Comment />
