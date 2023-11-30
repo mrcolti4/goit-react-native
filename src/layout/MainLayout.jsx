@@ -1,4 +1,9 @@
-import { ImageBackground, StyleSheet } from "react-native";
+import {
+  ImageBackground,
+  Keyboard,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 import background from "../assets/images/main-bg.jpg";
 import { View } from "react-native";
@@ -12,20 +17,22 @@ const styles = StyleSheet.create({
 
 const MainLayout = ({ children }) => {
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={background}
-        resizeMode="cover"
-        style={{ flex: 1, justifyContent: "center" }}
-      >
-        <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={background}
+          resizeMode="cover"
+          style={{ flex: 1, justifyContent: "center" }}
         >
-          {children}
-          <StatusBar style="auto" />
-        </View>
-      </ImageBackground>
-    </View>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            {children}
+            <StatusBar style="auto" />
+          </View>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

@@ -1,6 +1,7 @@
 import { View, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import * as Location from "expo-location";
 import Icon from "@expo/vector-icons/Feather";
 
 import PostInput from "./components/PostInput";
@@ -46,9 +47,12 @@ const styles = StyleSheet.create({
 });
 
 const CreatePostScreen = () => {
+  const navigation = useNavigation();
+  // Form state
   const [postTitle, setPostTitle] = useState("");
   const [postLocation, setPostLocation] = useState("");
   const [postImg, setPostImg] = useState(null);
+  const [postCoords, setPostCoords] = useState("");
 
   const clearFields = () => {
     setPostTitle("");
@@ -56,7 +60,10 @@ const CreatePostScreen = () => {
     setPostImg(null);
   };
 
-  const navigation = useNavigation();
+  const isFilled = () => {
+    return [postTitle, postLocation].every((elem) => elem !== "");
+  };
+
   const onPress = () => {
     if (!postTitle || !postLocation) {
       navigation.navigate("Posts");
@@ -78,6 +85,21 @@ const CreatePostScreen = () => {
         style: "cancel",
       },
     ]);
+  };
+
+  const handleSubmit = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      return Alert.alert("Error", "Dont have permission for geolocation");
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    const coords = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    };
+    setPostCoords(coords);
+    navigation.navigate("Posts");
   };
 
   return (
@@ -108,7 +130,9 @@ const CreatePostScreen = () => {
             />
           </View>
         </View>
-        <PostBtn isFilled={false}>Опубліковати</PostBtn>
+        <PostBtn onPress={handleSubmit} isFilled={isFilled()}>
+          Опубліковати
+        </PostBtn>
       </View>
       <TouchableOpacity onPress={onPress} style={styles.deleteIconBtn}>
         <Icon

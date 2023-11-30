@@ -89,12 +89,6 @@ const Home = () => {
       <Tabs.Screen
         name="CreatePost"
         component={CreatePostTabs}
-        // options={{
-        //   headerLeft: () => {
-        //     return <GoBack style={{ marginLeft: 16 }} />;
-        //   },
-        //   headerRight: null,
-        // }}
         options={({ route }) => ({
           tabBarStyle: { display: "none" },
           headerLeft: () => {
