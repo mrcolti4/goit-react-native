@@ -6,11 +6,12 @@ export const register = createAsyncThunk(
   "auth/register",
   async (body, { rejectWithValue }) => {
     try {
-      const { user } = await authApi.registerDB(body);
+      const { email, password, userName: displayName } = body;
+      const { user } = await authApi.registerDB({ email, password });
       const userObj = {
         email: user.email,
         uid: user.uid,
-        displayName: user.displayName,
+        displayName,
         photoUrl: user.photoURL,
       };
       return userObj;

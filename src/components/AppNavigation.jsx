@@ -8,8 +8,8 @@ import { logout } from "../redux/auth/thunk";
 import { selectUser } from "../redux/auth/selectors";
 import { auth } from "../config";
 
-import RegistrationScreen from "../screens/RegistrationScreen";
-import LoginScreen from "../screens/LoginScreen";
+import RegistrationScreen from "../screens/auth/RegistrationScreen";
+import LoginScreen from "../screens/auth/LoginScreen";
 import Home from "../screens/Home";
 
 const MainStack = createStackNavigator();

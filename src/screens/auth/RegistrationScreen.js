@@ -2,21 +2,21 @@ import { StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
-import UserForm from "../components/form/UserForm";
-import SubmitButton from "../components/form/SubmitButton";
-import FormInput from "../components/form/FormInput";
-import PasswordInput from "../components/form/PasswordInput";
-import SignInUpButton from "../components/form/SignInUpButton";
-import FormContainer from "../components/form/FormContainer";
-import UploadImage from "../components/posts/UploadImage";
-import FormTitle from "../components/posts/Title";
-import NavigateLink from "../components/ui/NavigateLink";
-import MainLayout from "../layout/MainLayout";
+import UserForm from "../../components/form/UserForm";
+import SubmitButton from "../../components/form/SubmitButton";
+import FormInput from "../../components/form/FormInput";
+import PasswordInput from "../../components/form/PasswordInput";
+import SignInUpButton from "../../components/form/SignInUpButton";
+import FormContainer from "../../components/form/FormContainer";
+import UploadImage from "../../components/posts/UploadImage";
+import FormTitle from "../../components/posts/Title";
+import NavigateLink from "../../components/ui/NavigateLink";
+import MainLayout from "../../layout/MainLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../redux/auth/thunk";
-import { selectUser } from "../redux/auth/selectors";
-import { selectError } from "../redux/root/selectors";
-import { auth } from "../config";
+import { register } from "../../redux/auth/thunk";
+import { selectUser } from "../../redux/auth/selectors";
+import { selectError } from "../../redux/root/selectors";
+import { auth } from "../../config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const styles = StyleSheet.create({
@@ -37,7 +37,7 @@ const RegistrationScreen = () => {
     if (!email || !password || !userName) {
       return;
     }
-    await dispatch(register({ email, password })).unwrap();
+    await dispatch(register({ email, password, userName })).unwrap();
     if (!error) {
       navigation.navigate("Home");
     }

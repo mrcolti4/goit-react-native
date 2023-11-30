@@ -3,18 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import { login } from "../redux/auth/thunk";
+import { login } from "../../redux/auth/thunk";
 
-import UserForm from "../components/form/UserForm";
-import FormContainer from "../components/form/FormContainer";
-import FormInput from "../components/form/FormInput";
-import PasswordInput from "../components/form/PasswordInput";
-import SubmitButton from "../components/form/SubmitButton";
-import SignInUpButton from "../components/form/SignInUpButton";
-import FormTitle from "../components/posts/Title";
-import NavigateLink from "../components/ui/NavigateLink";
-import MainLayout from "../layout/MainLayout";
-import { selectError } from "../redux/root/selectors";
+import UserForm from "../../components/form/UserForm";
+import FormContainer from "../../components/form/FormContainer";
+import FormInput from "../../components/form/FormInput";
+import PasswordInput from "../../components/form/PasswordInput";
+import SubmitButton from "../../components/form/SubmitButton";
+import SignInUpButton from "../../components/form/SignInUpButton";
+import FormTitle from "../../components/posts/Title";
+import NavigateLink from "../../components/ui/NavigateLink";
+import MainLayout from "../../layout/MainLayout";
+import { selectError } from "../../redux/root/selectors";
 
 const styles = StyleSheet.create({
   form: {
