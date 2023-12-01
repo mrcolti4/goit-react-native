@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import authApi from "../../api/authApi";
-import { auth } from "../../config";
+import { Alert } from "react-native";
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -15,7 +15,14 @@ export const register = createAsyncThunk(
       };
       return userObj;
     } catch (error) {
-      return rejectWithValue(error.message);
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          Alert.alert("Error", "Email already in use");
+          return rejectWithValue(error.message);
+        default:
+          Alert.alert("Error", `Something went wrong \n${error.message}`);
+          return rejectWithValue(error.message);
+      }
     }
   }
 );
@@ -34,7 +41,15 @@ export const login = createAsyncThunk(
 
       return userObj;
     } catch (error) {
-      return rejectWithValue(error.message);
+      switch (error.code) {
+        case "auth/invalid-credential":
+          Alert.alert("Error", "Email or password incorrect");
+          return rejectWithValue(error.message);
+
+        default:
+          Alert.alert("Error", `Something went wrong \n${error.message}`);
+          return rejectWithValue(error.message);
+      }
     }
   }
 );

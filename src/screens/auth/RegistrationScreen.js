@@ -1,6 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+
+import { register } from "../../redux/auth/thunk";
+
+import { registerSchema } from "../../js/validationSchemas";
 
 import UserForm from "../../components/form/UserForm";
 import SubmitButton from "../../components/form/SubmitButton";
@@ -12,36 +17,43 @@ import UploadImage from "../../components/posts/UploadImage";
 import FormTitle from "../../components/posts/Title";
 import NavigateLink from "../../components/ui/NavigateLink";
 import MainLayout from "../../layout/MainLayout";
-import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../redux/auth/thunk";
-import { selectUser } from "../../redux/auth/selectors";
-import { selectError } from "../../redux/root/selectors";
-import { auth } from "../../config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const styles = StyleSheet.create({
   form: { gap: 16, marginBottom: 43 },
 });
 
 const RegistrationScreen = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-  const error = useSelector(selectError);
-  const [userName, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const onPress = async () => {
-    if (!email || !password || !userName) {
-      return;
-    }
-    await dispatch(register({ email, password, userName })).unwrap();
-    if (!error) {
-      navigation.navigate("Home");
-    }
+  const onSubmit = () => {
+    setSubmitting(true);
+    dispatch(register(values))
+      .unwrap()
+      .then(() => navigation.navigate("Home"))
+      .finally(() => setSubmitting(false));
   };
+
+  const {
+    handleChange,
+    handleSubmit,
+    setFieldTouched,
+    setSubmitting,
+    isSubmitting,
+    isValid,
+    dirty,
+    values,
+    errors,
+    touched,
+  } = useFormik({
+    initialValues: {
+      userName: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: registerSchema,
+    onSubmit,
+  });
 
   return (
     <MainLayout>
@@ -51,23 +63,39 @@ const RegistrationScreen = () => {
           <FormTitle style={{ marginTop: 93 }}>Реєстрація</FormTitle>
           <View style={styles.form}>
             <FormInput
+              error={errors.userName}
+              touched={touched.userName}
+              value={values.userName}
               placeholder="Логін"
-              value={userName}
-              onChangeText={setUsername}
+              onChangeText={handleChange("userName")}
+              onBlur={() => setFieldTouched("userName")}
             />
             <FormInput
+              error={errors.email}
+              touched={touched.email}
+              value={values.email}
               placeholder="Адреса електронної пошти"
-              value={email}
-              onChangeText={setEmail}
+              onChangeText={handleChange("email")}
+              onBlur={() => setFieldTouched("email")}
             />
-            <PasswordInput value={password} onChangeText={setPassword} />
+            <PasswordInput
+              error={errors.password}
+              touched={touched.password}
+              value={values.password}
+              onChangeText={handleChange("password")}
+              onBlur={() => setFieldTouched("password")}
+            />
           </View>
-          <SubmitButton onPress={onPress}>Зареєстуватися</SubmitButton>
+          <SubmitButton
+            disabled={!isValid || !dirty || isSubmitting}
+            onPress={handleSubmit}
+          >
+            Зареєстуватися
+          </SubmitButton>
           <SignInUpButton>
             Вже є акаунт?{" "}
             <NavigateLink to={{ screen: "Login" }}>Увійти</NavigateLink>
           </SignInUpButton>
-          {error && <Text>Email in used </Text>}
         </UserForm>
       </FormContainer>
     </MainLayout>

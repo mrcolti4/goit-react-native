@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { StyleSheet, Text, View } from "react-native";
+import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { login } from "../../redux/auth/thunk";
@@ -14,7 +14,7 @@ import SignInUpButton from "../../components/form/SignInUpButton";
 import FormTitle from "../../components/posts/Title";
 import NavigateLink from "../../components/ui/NavigateLink";
 import MainLayout from "../../layout/MainLayout";
-import { selectError } from "../../redux/root/selectors";
+import { loginSchema } from "../../js/validationSchemas";
 
 const styles = StyleSheet.create({
   form: {
@@ -24,23 +24,36 @@ const styles = StyleSheet.create({
 });
 
 const LoginScreen = () => {
-  const dispatch = useDispatch();
-  const error = useSelector(selectError);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const onPress = async () => {
-    if (!email || !password) {
-      return;
-    }
-    await dispatch(login({ email, password })).unwrap();
-
-    if (!error) {
-      navigation.navigate("Home");
-    }
+  const onSubmit = () => {
+    setSubmitting(true);
+    dispatch(login(values))
+      .unwrap()
+      .then(() => navigation.navigate("Home"))
+      .finally(() => setSubmitting(false));
   };
+
+  const {
+    handleChange,
+    handleSubmit,
+    setFieldTouched,
+    setSubmitting,
+    values,
+    errors,
+    touched,
+    isValid,
+    isSubmitting,
+    dirty,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit,
+  });
 
   return (
     <MainLayout>
@@ -49,20 +62,32 @@ const LoginScreen = () => {
           <View style={styles.form}>
             <FormTitle style={{ marginTop: 32 }}>Увійти</FormTitle>
             <FormInput
+              error={errors.email}
+              touched={touched.email}
+              value={values.email}
               placeholder="Адреса електронної пошти"
-              value={email}
-              onChangeText={setEmail}
+              onChangeText={handleChange("email")}
+              onBlur={() => setFieldTouched("email")}
             />
-            <PasswordInput value={password} onChangeText={setPassword} />
+            <PasswordInput
+              error={errors.password}
+              touched={touched.password}
+              value={values.password}
+              onChangeText={handleChange("password")}
+              onBlur={() => setFieldTouched("password")}
+            />
           </View>
-          <SubmitButton onPress={onPress}>Увійти</SubmitButton>
+          <SubmitButton
+            disabled={!isValid || !dirty || isSubmitting}
+            onPress={handleSubmit}
+          >
+            Увійти
+          </SubmitButton>
           <SignInUpButton>
-            <Text style={{ textAlign: "center", justifyContent: "center" }}>
-              Немає акаунту?{" "}
-              <NavigateLink to={{ screen: "Registration" }}>
-                Зареєструватися
-              </NavigateLink>
-            </Text>
+            Немає акаунту?{" "}
+            <NavigateLink to={{ screen: "Registration" }}>
+              Зареєструватися
+            </NavigateLink>
           </SignInUpButton>
         </UserForm>
       </FormContainer>

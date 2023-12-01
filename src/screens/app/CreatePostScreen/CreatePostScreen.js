@@ -40,15 +40,17 @@ const styles = StyleSheet.create({
 const CreatePostScreen = () => {
   const navigation = useNavigation();
 
-  const { handleChange, values, resetForm, isValid } = useFormik({
-    initialValues: {
-      title: "",
-      location: "",
-      img: "",
-      coords: "",
-    },
-    validationSchema: createPostSchema,
-  });
+  const { handleChange, values, resetForm, isValid, setFieldValue } = useFormik(
+    {
+      initialValues: {
+        title: "",
+        location: "",
+        img: "",
+        coords: {},
+      },
+      validationSchema: createPostSchema,
+    }
+  );
 
   const handleSubmit = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -61,19 +63,19 @@ const CreatePostScreen = () => {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
     };
-    setPostCoords(coords);
+    setFieldValue("coords", coords);
     navigation.navigate("Posts");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
-        <PostImage image={postImg} setImage={setPostImg} />
+        <PostImage image={values.img} setImage={handleChange("img")} />
         <View style={{ gap: 16 }}>
           <PostInput
             placeholder="Назва..."
-            value={postTitle}
-            onChangeText={setPostTitle}
+            value={values.title}
+            onChangeText={handleChange("title")}
           />
           <View style={styles.location}>
             <Icon
@@ -88,8 +90,8 @@ const CreatePostScreen = () => {
                 paddingLeft: 28,
               }}
               placeholder="Місцевість..."
-              value={postLocation}
-              onChangeText={setPostLocation}
+              value={values.location}
+              onChangeText={handleChange("location")}
             />
           </View>
         </View>
