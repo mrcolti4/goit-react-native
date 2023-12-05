@@ -9,6 +9,7 @@ import User from "../../components/posts/User";
 import Post from "../../components/posts/Post";
 
 import { useEffect } from "react";
+import { usePosts } from "../../hooks/usePosts";
 
 const styles = StyleSheet.create({
   container: {
@@ -20,13 +21,7 @@ const styles = StyleSheet.create({
 });
 
 const ProfileScreen = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-  const posts = useSelector(selectPosts);
-
-  useEffect(() => {
-    dispatch(getAllPosts());
-  }, [dispatch]);
+  const { user, posts } = usePosts();
 
   return (
     <View style={styles.container}>

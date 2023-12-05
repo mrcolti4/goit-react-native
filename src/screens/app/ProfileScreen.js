@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux";
 import { View, FlatList, StyleSheet } from "react-native";
 
-import { selectUser } from "../../redux/auth/selectors";
+import { usePosts } from "../../hooks/usePosts";
 
 import Logout from "../../components/ui/Logout";
 import Title from "../../components/posts/Title";
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 const PostsScreen = () => {
-  const user = useSelector(selectUser);
+  const { user, posts } = usePosts();
 
   return (
     <MainLayout>
@@ -31,8 +30,8 @@ const PostsScreen = () => {
           {user?.displayName ?? "Anonymous"}
         </Title>
         <FlatList
-          data={data}
-          renderItem={({ item }) => <Post post={item} />}
+          data={posts}
+          renderItem={({ item }) => <Post post={item} key={item.id} />}
           keyExtractor={(post) => post.id}
           numColumns={1}
         />
