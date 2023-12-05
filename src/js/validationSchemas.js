@@ -13,14 +13,9 @@ export const createPostSchema = yup.object().shape({
     .min(2, "The location must contain at least 2 characters.")
     .max(15, "The location cannot exceed 15 characters.")
     .required("Location is required."),
-  img: yup
-    .mixed()
-    .test("name", "Image is required", (value) => {
-      return value != undefined && value[0] && value[0].name !== "";
-    })
-    .test("type", "Only images are supported", (value) => {
-      return value != undefined && value[0] && value[0].type.includes("image");
-    }),
+  imgUrl: yup.mixed().test("name", "Image is required", (value) => {
+    return value !== undefined;
+  }),
 });
 
 export const registerSchema = yup.object().shape({

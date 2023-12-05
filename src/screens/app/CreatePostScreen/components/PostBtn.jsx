@@ -28,10 +28,10 @@ const PostBtn = ({ children, disabled, onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      disabled={!disabled}
-      style={[styles.btn, disabled ? styles.btnActive : null]}
+      disabled={disabled}
+      style={[styles.btn, !disabled ? styles.btnActive : null]}
     >
-      <Text style={[styles.text, disabled ? styles.textActive : null]}>
+      <Text style={[styles.text, !disabled ? styles.textActive : null]}>
         {children}
       </Text>
     </TouchableOpacity>

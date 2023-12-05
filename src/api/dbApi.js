@@ -3,9 +3,8 @@ import { db } from "../config";
 
 export const writeDataToFirestore = async (data) => {
   try {
-    const docRef = await addDoc(collection(db, "users"), data);
+    const docRef = await addDoc(collection(db, "posts"), data);
     console.log("Document written with ID: ", docRef.id);
-    console.log("docRef: ", docRef);
   } catch (e) {
     console.error("Error adding document: ", e);
     throw e;

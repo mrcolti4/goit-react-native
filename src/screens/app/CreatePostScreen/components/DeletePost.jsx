@@ -1,5 +1,6 @@
 import { TouchableOpacity, StyleSheet, Alert } from "react-native";
 import Icon from "@expo/vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   deleteIconBtn: {
@@ -18,6 +19,8 @@ const styles = StyleSheet.create({
 });
 
 const DeletePost = ({ resetForm }) => {
+  const navigation = useNavigation();
+
   const onPress = () => {
     Alert.alert("Are you sure?", "If you leave all changes won't save", [
       {
