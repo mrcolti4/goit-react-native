@@ -9,8 +9,6 @@ import UploadImage from "../../components/posts/UploadImage";
 import Post from "../../components/posts/Post";
 import MainLayout from "../../layout/MainLayout";
 
-import { data } from "../../data.js";
-
 const styles = StyleSheet.create({
   container: {
     marginTop: 100,

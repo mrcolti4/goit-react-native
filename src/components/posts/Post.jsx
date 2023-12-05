@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   },
   img: {
     width: "100%",
+    height: 240,
     borderRadius: 5,
   },
   descr: {},
@@ -40,12 +41,11 @@ const styles = StyleSheet.create({
 const Post = ({ post }) => {
   const navigation = useNavigation();
 
-  const { id, imgSrc, title, msgCount, likesCount, location, coordinates } =
-    post;
+  const { imgUrl, title, msgCount, likesCount, location, coords } = post;
 
   return (
     <View style={styles.post}>
-      <Image style={styles.img} source={imgSrc} />
+      <Image style={styles.img} source={{ uri: imgUrl }} />
       <View style={styles.descr}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.wrapper}>
@@ -70,7 +70,7 @@ const Post = ({ post }) => {
           <View style={[styles.info, { marginLeft: "auto" }]}>
             <TouchableOpacity
               style={styles.info}
-              onPress={() => navigation.navigate("MapScreen", { coordinates })}
+              onPress={() => navigation.navigate("MapScreen", { coords })}
             >
               <Icon name="map-pin" size={20} color="#BDBDBD" />
               <Text style={[styles.stat, { textDecorationLine: "underline" }]}>

@@ -1,12 +1,14 @@
 import { View, StyleSheet, FlatList } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { selectUser } from "../../redux/auth/selectors";
+import { selectPosts } from "../../redux/posts/selectors";
+import { getAllPosts } from "../../redux/posts/thunk";
 
 import User from "../../components/posts/User";
 import Post from "../../components/posts/Post";
 
-import { data } from "../../data";
+import { useEffect } from "react";
 
 const styles = StyleSheet.create({
   container: {
@@ -18,14 +20,20 @@ const styles = StyleSheet.create({
 });
 
 const ProfileScreen = () => {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const posts = useSelector(selectPosts);
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>
       <User user={user} />
       <FlatList
-        data={data}
-        renderItem={({ item }) => <Post post={item} />}
+        data={posts}
+        renderItem={({ item }) => <Post post={item} key={item.id} />}
         keyExtractor={(post) => post.id}
       />
     </View>
