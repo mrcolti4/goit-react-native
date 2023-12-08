@@ -1,6 +1,7 @@
 import { View, StyleSheet, Text, Image } from "react-native";
 import Comment from "./components/Comment";
 import CommentInput from "./components/CommentInput";
+import { useRoute } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   container: {
@@ -24,9 +25,17 @@ const styles = StyleSheet.create({
     left: 16,
     width: "100%",
   },
+  noComment: {
+    textAlign: "center",
+    color: "gray",
+  },
 });
 
 const CommentsScreen = () => {
+  const {
+    params: { comments },
+  } = useRoute();
+
   return (
     <View style={styles.container}>
       <Image
@@ -34,7 +43,11 @@ const CommentsScreen = () => {
         source={require("../../../assets/images/posts/img-01.png")}
       />
       <View style={styles.commentsBlock}>
-        <Comment />
+        {comments ? (
+          comments.map((comment) => <Comment data={comment} />)
+        ) : (
+          <Text style={styles.noComment}>No comments yet</Text>
+        )}
       </View>
       <CommentInput style={styles.input} />
     </View>

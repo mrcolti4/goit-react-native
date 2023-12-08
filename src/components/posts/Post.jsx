@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 const Post = ({ post }) => {
   const navigation = useNavigation();
 
-  const { imgUrl, title, msgCount, likesCount, location, coords } = post;
+  const { imgUrl, title, comments, likesCount, location, coords } = post;
 
   return (
     <View style={styles.post}>
@@ -52,7 +52,7 @@ const Post = ({ post }) => {
           <View style={styles.info}>
             <TouchableOpacity
               style={styles.info}
-              onPress={() => navigation.navigate("Comments")}
+              onPress={() => navigation.navigate("Comments", { comments })}
             >
               <Icon
                 name="message-circle"
@@ -60,7 +60,7 @@ const Post = ({ post }) => {
                 color="#FF6C00"
                 style={{ transform: [{ rotateY: "180deg" }] }}
               />
-              <Text style={styles.stat}>{msgCount}</Text>
+              <Text style={styles.stat}>{comments?.length || 0}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.info}>

@@ -1,14 +1,8 @@
 import { View, StyleSheet, FlatList } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-
-import { selectUser } from "../../redux/auth/selectors";
-import { selectPosts } from "../../redux/posts/selectors";
-import { getAllPosts } from "../../redux/posts/thunk";
 
 import User from "../../components/posts/User";
 import Post from "../../components/posts/Post";
 
-import { useEffect } from "react";
 import { usePosts } from "../../hooks/usePosts";
 
 const styles = StyleSheet.create({

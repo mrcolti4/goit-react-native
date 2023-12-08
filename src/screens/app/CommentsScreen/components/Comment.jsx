@@ -29,15 +29,22 @@ const styles = StyleSheet.create({
 });
 
 const Comment = ({ data }) => {
+  const formatter = Intl.DateTimeFormat("uk-UA", {
+    day: "2-digit",
+    month: "long",
+  });
+  const date = new Date(data.postedAt);
+
+  const formattedDate = `${formatter.format(
+    date
+  )}, ${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}`;
+
   return (
     <View style={styles.container}>
       <Image source={require("../../../../assets/images/avt/avatar-01.png")} />
       <View style={styles.comment}>
-        <Text style={styles.text}>
-          Really love your most recent photo. I've been trying to capture the
-          same thing for a few months and would love some tips!
-        </Text>
-        <Text style={styles.postedAt}>09 червня, 2020 | 08:40</Text>
+        <Text style={styles.text}>{data.text}</Text>
+        <Text style={styles.postedAt}>{formattedDate}</Text>
       </View>
     </View>
   );
