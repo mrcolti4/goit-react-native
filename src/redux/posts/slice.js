@@ -9,8 +9,14 @@ const initialState = {
 const postsSlice = createSlice({
   name: "posts",
   initialState,
+  reducers: {
+    setActualPosts(state, { payload }) {
+      state.data = payload;
+    },
+  },
   extraReducers: (builder) =>
     builder.addCase(getAllPosts.fulfilled, handleAllPosts),
 });
 
 export const postsReducer = postsSlice.reducer;
+export const { setActualPosts } = postsSlice.actions;

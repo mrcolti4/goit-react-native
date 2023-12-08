@@ -33,7 +33,6 @@ const PostsScreen = () => {
           data={posts}
           renderItem={({ item }) => <Post post={item} key={item.id} />}
           keyExtractor={(post) => post.id}
-          numColumns={1}
         />
       </View>
     </MainLayout>
