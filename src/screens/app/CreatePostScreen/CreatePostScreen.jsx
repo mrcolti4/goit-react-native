@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { useState, useEffect } from "react";
+import { View, StyleSheet } from "react-native";
 import { useFormik } from "formik";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigation } from "@react-navigation/native";
-import * as Location from "expo-location";
 import Icon from "@expo/vector-icons/Feather";
 
 import PostInput from "./components/PostInput";
@@ -14,7 +12,10 @@ import UploadProgressAlert from "./components/UploadProgressAlert";
 
 import { createPostSchema } from "../../../js/validationSchemas";
 import { writeDataToFirestore } from "../../../api/dbApi";
-import { storage } from "../../../config";
+import {
+  uploadImageAndGetCoords,
+  useAsync,
+} from "../../../hooks/useUploadImage";
 
 const styles = StyleSheet.create({
   container: {
@@ -42,52 +43,6 @@ const styles = StyleSheet.create({
 });
 
 const CreatePostScreen = () => {
-  const navigation = useNavigation();
-  const [progress, setProgress] = useState(0);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [modal, setModal] = useState(false);
-
-  const uploadPost = async () => {
-    const response = await fetch(values.imgUrl);
-    const blob = await response.blob();
-    const storageRef = ref(storage, "post-img/" + new Date().getTime());
-    const uploadTask = uploadBytesResumable(storageRef, blob);
-    uploadTask.on(
-      "state_changed",
-      (snap) => {
-        setProgress((snap.bytesTransferred / snap.totalBytes) * 100);
-      },
-      (error) => {
-        console.log(error);
-      },
-      async () => {
-        const imgUrl = await getDownloadURL(uploadTask.snapshot.ref);
-
-        const { status } = await Location.requestForegroundPermissionsAsync();
-
-        if (status !== "granted") {
-          return Alert.alert("Error", "Dont have permission for geolocation");
-        }
-
-        let location = await Location.getCurrentPositionAsync({});
-        const coords = {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        };
-
-        writeDataToFirestore({ ...values, imgUrl, coords })
-          .then(() => {
-            resetForm();
-            navigation.navigate("Posts");
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-            setModal(false);
-          });
-      }
-    );
-  };
-
   const { handleChange, handleSubmit, resetForm, values, isValid, dirty } =
     useFormik({
       initialValues: {
@@ -103,6 +58,33 @@ const CreatePostScreen = () => {
         uploadPost();
       },
     });
+  const navigation = useNavigation();
+  const [callFunc, useCallFunc] = useState(false);
+  const { progress, img, coords } = useAsync(
+    uploadImageAndGetCoords,
+    callFunc,
+    values.imgUrl
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  const uploadPost = async () => {
+    useCallFunc(true);
+  };
+
+  useEffect(() => {
+    if (callFunc && img) {
+      writeDataToFirestore({ ...values, imgUrl: img, coords })
+        .then(() => {
+          resetForm();
+          navigation.navigate("Posts");
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+          setModal(false);
+        });
+    }
+  }, [callFunc, img]);
 
   return (
     <View style={styles.container}>
@@ -143,7 +125,7 @@ const CreatePostScreen = () => {
       <UploadProgressAlert
         setModalVisible={setModal}
         modalVisible={modal}
-        progress={progress.toFixed(2)}
+        progress={progress?.toFixed(2)}
       />
     </View>
   );
