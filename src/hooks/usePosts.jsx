@@ -22,6 +22,8 @@ export const usePosts = () => {
       dispatch(setActualPosts(posts));
     });
     dispatch(getAllPosts());
+
+    return () => unsubscribe();
   }, [dispatch]);
 
   return { user, posts };

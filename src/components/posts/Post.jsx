@@ -1,7 +1,9 @@
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
 import Icon from "@expo/vector-icons/Feather";
-import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+
+import { setPost } from "../../redux/posts/slice";
 
 const styles = StyleSheet.create({
   post: {
@@ -39,6 +41,7 @@ const styles = StyleSheet.create({
 });
 
 const Post = ({ post }) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const { imgUrl, title, comments, likesCount, location, coords } = post;
@@ -52,7 +55,10 @@ const Post = ({ post }) => {
           <View style={styles.info}>
             <TouchableOpacity
               style={styles.info}
-              onPress={() => navigation.navigate("Comments", { comments })}
+              onPress={() => {
+                navigation.navigate("Comments");
+                dispatch(setPost(post));
+              }}
             >
               <Icon
                 name="message-circle"

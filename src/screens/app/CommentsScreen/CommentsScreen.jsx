@@ -1,7 +1,15 @@
+import { useState } from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
-import Comment from "./components/Comment";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+
 import CommentInput from "./components/CommentInput";
-import { useRoute } from "@react-navigation/native";
+import CommentList from "./components/CommentList";
+
+import { useModifiedPost } from "../../../hooks/useModifiedPost";
+
+import { db } from "../../../config";
 
 const styles = StyleSheet.create({
   container: {
@@ -15,9 +23,10 @@ const styles = StyleSheet.create({
   img: {
     maxWidth: "100%",
     borderRadius: 8,
+    height: 240,
   },
   commentsBlock: {
-    gap: 24,
+    height: "50%",
   },
   input: {
     position: "absolute",
@@ -32,24 +41,46 @@ const styles = StyleSheet.create({
 });
 
 const CommentsScreen = () => {
-  const {
-    params: { comments },
-  } = useRoute();
+  const { post } = useModifiedPost();
+  const { imgUrl } = post;
+  const [comment, setComment] = useState("");
+  const postRef = doc(db, "posts", post.id);
+
+  const onClick = () => {
+    if (!comment) {
+      return;
+    }
+
+    try {
+      updateDoc(postRef, {
+        comments: arrayUnion({
+          id: uuidv4(),
+          text: comment,
+          postedAt: new Date().toString(),
+        }),
+      });
+      setComment("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.img}
-        source={require("../../../assets/images/posts/img-01.png")}
-      />
+      <Image style={styles.img} source={{ uri: imgUrl }} />
       <View style={styles.commentsBlock}>
-        {comments ? (
-          comments.map((comment) => <Comment data={comment} />)
+        {post?.comments ? (
+          <CommentList data={post?.comments} />
         ) : (
           <Text style={styles.noComment}>No comments yet</Text>
         )}
       </View>
-      <CommentInput style={styles.input} />
+      <CommentInput
+        style={styles.input}
+        onClick={onClick}
+        onChangeText={setComment}
+        value={comment}
+      />
     </View>
   );
 };
