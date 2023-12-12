@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const CommentInput = ({ style }) => {
+const CommentInput = ({ style, onClick, ...props }) => {
   return (
     <View style={[styles.container, style]}>
-      <TextInput style={styles.input} placeholder="Коментувати..." />
-      <TouchableOpacity style={styles.button}>
+      <TextInput style={styles.input} placeholder="Коментувати..." {...props} />
+      <TouchableOpacity style={styles.button} onPress={onClick}>
         <Icon name="arrow-up" color="#fff" size={24} />
       </TouchableOpacity>
     </View>

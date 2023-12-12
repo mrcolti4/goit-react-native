@@ -38,12 +38,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const PostImage = () => {
+const PostImage = ({ image, setImage }) => {
   //Camera state
-  const [image, setImage] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [type] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {
     (async () => {
@@ -56,8 +55,8 @@ const PostImage = () => {
 
   const makePhoto = async () => {
     if (cameraRef) {
-      const { uri } = await cameraRef.takePictureAsync();
-      setImage(uri);
+      const data = await cameraRef.takePictureAsync();
+      setImage(data.uri);
     }
   };
 
@@ -76,7 +75,7 @@ const PostImage = () => {
               source={{ uri: image }}
             />
             <TouchableOpacity
-              onPress={() => setImage(null)}
+              onPress={() => setImage("")}
               style={styles.deletePhotoBtn}
             >
               <Icon name="x" size={24} />
