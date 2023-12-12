@@ -4,7 +4,7 @@ import { useRoute } from "@react-navigation/native";
 
 const Home = () => {
   const {
-    params: { coordinates },
+    params: { coords },
   } = useRoute();
 
   return (
@@ -12,18 +12,14 @@ const Home = () => {
       <MapView
         style={styles.mapStyle}
         region={{
-          ...coordinates,
+          ...coords,
           latitudeDelta: 0.06,
           longitudeDelta: 0.04,
         }}
         showsUserLocation={true}
       >
-        {coordinates && (
-          <Marker
-            title="I am here"
-            coordinate={coordinates}
-            description="Hello"
-          />
+        {coords && (
+          <Marker title="I am here" coordinate={coords} description="Hello" />
         )}
       </MapView>
     </View>

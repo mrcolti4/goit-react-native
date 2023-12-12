@@ -10,17 +10,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  buttonInvalid: {
+    backgroundColor: "gray",
+  },
   text: {
     color: "#fff",
     fontFamily: "Roboto-Regular",
     fontSize: 16,
   },
+  textInvalid: {
+    color: "#000",
+  },
 });
 
-const SubmitButton = ({ children, onPress }) => {
+const SubmitButton = ({ children, disabled, ...props }) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{children}</Text>
+    <TouchableOpacity
+      style={[styles.button, disabled ? styles.buttonInvalid : ""]}
+      disabled={disabled}
+      {...props}
+    >
+      <Text style={[styles.text, disabled ? styles.textInvalid : ""]}>
+        {children}
+      </Text>
     </TouchableOpacity>
   );
 };

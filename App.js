@@ -1,24 +1,12 @@
-import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { PersistGate } from "redux-persist/integration/react";
+import { Text } from "react-native";
+import { Provider } from "react-redux";
 import { useFonts } from "expo-font";
 
-import RegistrationScreen from "./src/screens/RegistrationScreen";
-import LoginScreen from "./src/screens/LoginScreen";
-import Home from "./src/screens/Home";
-import MapScreen from "./src/screens/MapScreen";
-import CommentsScreen from "./src/screens/CommentsScreen/CommentsScreen";
+import "react-native-gesture-handler";
 
-const MainStack = createStackNavigator();
-
-const defaultOptions = {
-  headerShown: true,
-  headerStyle: {
-    borderBottomWidth: 1,
-    borderBottomColor: "rgba(33, 33, 33, 0.8)",
-  },
-  headerTitleAlign: "center",
-};
+import { persistor, store } from "./src/redux/store";
+import AppNavigation from "./src/components/AppNavigation";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -32,30 +20,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <MainStack.Navigator
-        initialRouteName="Login"
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <MainStack.Screen name="Home" component={Home} />
-        <MainStack.Screen name="Registration" component={RegistrationScreen} />
-        <MainStack.Screen name="Login" component={LoginScreen} />
-        <MainStack.Screen
-          name="MapScreen"
-          component={MapScreen}
-          options={{ ...defaultOptions, headerTitle: "Локація" }}
-        ></MainStack.Screen>
-        <MainStack.Screen
-          name="Comments"
-          component={CommentsScreen}
-          options={{
-            ...defaultOptions,
-            headerTitle: "Коментарі",
-          }}
-        ></MainStack.Screen>
-      </MainStack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={<Text>Loading...</Text>} persistor={persistor}>
+        <AppNavigation />
+      </PersistGate>
+    </Provider>
   );
 }
